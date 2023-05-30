@@ -4,21 +4,38 @@ import dao.UserDao;
 import entities.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
-public class RegisterServlet {
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     private UserDao  userDao;
     public void init() {
-       userDao = new UserDao();
+        userDao = new UserDao();
     }
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("index.jsp");
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RegisterServlet() {
+        super();
+        // TODO Auto-generated constructor stub
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.sendRedirect("index.jsp");}
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name=request.getParameter("name");
         String username=request.getParameter("username");
         String email=request.getParameter("email");
@@ -26,13 +43,12 @@ public class RegisterServlet {
 
         User user = new User();
         user.setName(name);
-        user.setName(username);
-        user.setUsername(email);
+        user.setUsername(username);
+        user.setEmail(email);
         user.setPassword(pass);
         userDao.saveUser(user);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("register-success.jsp");
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("chat.jsp");
+        dispatcher.forward(request, response);}
 
-    }
 }

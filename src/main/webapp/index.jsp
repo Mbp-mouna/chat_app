@@ -8,7 +8,7 @@
 
   <!-- Font Icon -->
   <link rel="stylesheet"
-        href="assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+        href="fonts/material-icon/css/material-design-iconic-font.css/material-design-iconic-font.min.css">
 
   <!-- Main css -->
   <link rel="stylesheet" href="assets/css/style.css">
@@ -28,7 +28,7 @@
                 id="register-form">
             <div class="form-group">
               <label for="name"><i
-                      class="zmdi zmdi-account material-icons-name"></i></label> <input
+                      class=""></i></label> <input
                     type="text" name="name" id="name" placeholder="Your Name" />
             </div>
 

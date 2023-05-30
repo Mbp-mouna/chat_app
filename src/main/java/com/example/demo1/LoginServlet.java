@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -24,16 +25,34 @@ import java.io.IOException;
         public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 
 
-            String username=request.getParameter("username");
+            try {
+                authenticate(request, response);
+            } catch (Exception e) {
 
-            String pass=request.getParameter("password");
-
-            if (loginDao.validate(username, pass)) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login-success.jsp");
-                dispatcher.forward(request, response);
+                e.printStackTrace();
             }
         }
+
+        private void authenticate(HttpServletRequest request, HttpServletResponse response)
+                throws Exception {
+          try{  String username = request.getParameter("username");
+            String password = request.getParameter("password");
+
+            if (loginDao.validate(username, password)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("chat.jsp");
+                dispatcher.forward(request, response);
+                //response.sendRedirect("chat.jsp");
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                dispatcher.forward(request, response);
+            } } catch (Exception e) {
+              e.printStackTrace();
+          }
+          }
         }
+
 
 
 

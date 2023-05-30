@@ -34,7 +34,7 @@
 						<form method="post" action="login" class="register-form"
 							id="login-form">
 							<div class="form-group">
-								<label for="username"><i class="zmdi zmdi-volume-off"></i></label> <input
+								<label for="username"></label> <input
 									type="text" name="username" id="username"
 									placeholder="Your Username" />
 							</div>
@@ -42,7 +42,7 @@
 
 
 							<div class="form-group">
-								<label for="password"><i class="zmdi zmdi-lock"></i></label> <input
+								<label for="password"></label> <input
 									type="password" name="password" id="password"
 									placeholder="Password" />
 							</div>
