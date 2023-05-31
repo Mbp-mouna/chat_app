@@ -1,5 +1,6 @@
 package conn;
 
+import entities.Log;
 import entities.Message;
 import entities.User;
 import org.hibernate.SessionFactory;
@@ -30,6 +31,7 @@ public class HibernateUtil {
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Message.class);
+                configuration.addAnnotatedClass(Log.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

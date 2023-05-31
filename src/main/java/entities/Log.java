@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "MESSAGE")
-public class Message {
+@Table(name = "LOG")
+public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,17 +18,17 @@ public class Message {
     @Column(name = "TIMESTAMP")
     private LocalDateTime timestamp;
 
-    @Column(name = "CONTENT")
-    private String content;
+    @Column(name = "TYPE")
+    private String type;
 
-    public Message(Long id, User user, LocalDateTime timestamp, String content) {
+    public Log(Long id, User user, LocalDateTime timestamp, String type) {
         this.id = id;
         this.user = user;
         this.timestamp = timestamp;
-        this.content = content;
+        this.type = type;
     }
 
-    public Message() {
+    public Log() {
 
     }
 
@@ -56,11 +56,11 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    public String getContent() {
-        return content;
+    public String getType() {
+        return type;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setType(String type) {
+        this.type = type;
     }
 }

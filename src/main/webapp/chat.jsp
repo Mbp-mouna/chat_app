@@ -1,10 +1,11 @@
 <%@ page import="entities.Message" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="entities.ChatManager" %>
+<!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Chat</title>
-
+	<meta http-equiv="refresh" content="6; URL=chat.jsp">
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -24,50 +25,46 @@
 			margin-bottom: 20px;
 		}
 
-		.message-list {
-			list-style-type: none;
-			padding: 0;
-		}
-
-		.message-list li {
+		.chat-messages {
+			height: 300px;
+			overflow-y: scroll;
+			border: 1px solid #ccc;
+			padding: 10px;
 			margin-bottom: 10px;
 		}
 
-		.message-list li .message {
-			background-color: #f9f9f9;
-			border-radius: 5px;
+		.chat-message {
+			margin-bottom: 10px;
+		}
+
+		.chat-message .timestamp {
+			font-size: 10px;
+			color: #999;
+		}
+
+		.chat-form {
+			display: flex;
+		}
+
+		.chat-form input[type="text"] {
+			flex: 1;
 			padding: 10px;
+			border: none;
+			border-radius: 5px 0 0 5px;
+			border: 1px solid #ccc;
 		}
 
-		.message-list li .author {
-			font-weight: bold;
-			margin-bottom: 5px;
-		}
-
-		.message-list li .timestamp {
-			color: #888;
-			font-size: 12px;
-		}
-
-		.add-message-form {
-			margin-top: 20px;
-		}
-
-		.add-message-form textarea {
-			width: 100%;
-			padding: 10px;
-			border-radius: 5px;
-			resize: vertical;
-		}
-
-		.add-message-form input[type="submit"] {
-			margin-top: 10px;
-			padding: 5px 10px;
+		.chat-form button {
+			padding: 10px 15px;
 			background-color: #4CAF50;
 			color: #fff;
 			border: none;
-			border-radius: 5px;
+			border-radius: 0 5px 5px 0;
 			cursor: pointer;
+		}
+
+		.chat-form button:hover {
+			background-color: #45a049;
 		}
 	</style>
 </head>
@@ -75,26 +72,26 @@
 <div class="chat-container">
 	<h1>Chat</h1>
 
-	<ul class="message-list">
-		<% List<Message> messages = (List<Message>) request.getAttribute("messages");
-			if (messages != null && !messages.isEmpty()) {
-				for (Message message : messages) { %>
-		<li>
-			<div class="message">
-				<div class="author"><%= message.getAut() %></div>
-				<div><%= message.getMessage() %></div>
-
-			</div>
-		</li>
-		<% }
-		} else { %>
-		<li>No messages yet.</li>
+	<div class="chat-messages">
+		<%-- Afficher les messages --%>
+		<% for (Message message : ChatManager.getMessages()) { %>
+		<div class="chat-message">
+			<span><strong><%= message.getUser().getUsername() %>:</strong></span>
+			<span><%= message.getContent() %></span>
+			<span class="timestamp"><%= message.getTimestamp() %></span>
+		</div>
 		<% } %>
-	</ul>
+	</div>
 
-	<form class="add-message-form" action="chat" method="POST">
-		<textarea name="message" rows="4" placeholder="Type your message here"></textarea><br>
-		<input type="submit" value="Send">
+	<form class="chat-form" action="chat" method="post">
+		<input type="text" name="message" placeholder="Votre message">
+		<button type="submit">Envoyer</button>
+	</form>
+	<h2>Supprimer un utilisateur :</h2>
+	<form method="post" action="deleteUser">
+		<label for="username">Nom d'utilisateur :</label>
+		<input type="text" id="username" name="username" required>
+		<button type="submit">Supprimer</button>
 	</form>
 </div>
 </body>

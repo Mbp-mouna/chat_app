@@ -27,9 +27,14 @@
           <form method="post" action="register" class="register-form"
                 id="register-form">
             <div class="form-group">
-              <label for="name"><i
+              <label for="firstName"><i
                       class=""></i></label> <input
-                    type="text" name="name" id="name" placeholder="Your Name" />
+                    type="text" name="firstName" id="firstName" placeholder="Your firstName" />
+            </div>
+            <div class="form-group">
+              <label for="lastName"><i
+                      class=""></i></label> <input
+                    type="text" name="lastName" id="lastName" placeholder="Your lastName" />
             </div>
 
             <div class="form-group">
@@ -84,5 +89,4 @@
 
 
 </body>
-<!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
