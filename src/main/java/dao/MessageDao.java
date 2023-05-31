@@ -28,6 +28,28 @@ public class MessageDao {
             e.printStackTrace();
         }
     }
+    public Message getMessageById(Long messageId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Message.class, messageId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void updateMessage(Message message) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(message);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 
     public List<Message> getAllMessages() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
